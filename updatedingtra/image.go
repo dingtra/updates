@@ -39,7 +39,7 @@ func CloudSingleImage(r *http.Request) string {
         fmt.Println(err)
     }
 
-	resp, err:= cld.Upload.Upload(ctx, file, uploader.UploadParams{PublicID: "image"+Breakall(tempfile.Name())});
+	resp, err:= cld.Upload.Upload(ctx, file, uploader.UploadParams{PublicID: "image"+Breakall(tempfile.Name()),"folder":"profile"});
 	
 	if err != nil {
 		log.Fatal("Failed to upload files %v\n", err)
