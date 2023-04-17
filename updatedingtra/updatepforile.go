@@ -65,12 +65,6 @@ func (let *UpdateStruct ) ProfileForm (item primitive.M) {
 					   <div class="jsr892"><span> <input name="username" type="text" value="`+let.Username+`"/> </span></div>
 					</div>
 	
-					<div style="position:relative;" class="jsr890">
-					   <div class="jsr891"><span>Bio</span></div>
-					   <span id="updtxr091-text092x"></span>
-					   <div class="jsr892"><span> <textarea id="frmupdtxr090" name="bio">`+let.Bio+`</textarea> </span></div>
-					</div>
-	
 					<div class="jsr890">
 					   <div class="jsr891"><span>Website</span></div>
 					   <div class="jsr892"><span> <input name="website" type="text" value="`+let.Website+`"/> </span></div>

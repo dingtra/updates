@@ -11,7 +11,6 @@ import (
 	"strconv"
 	"html/template"
 	"regexp"
-	"github.com/dingtra/hashtagandtags/hashtag"
 	// "fmt"
 )
 
@@ -30,7 +29,6 @@ func (let *UpdateStruct ) UpdateUserProfile (w http.ResponseWriter, r *http.Requ
 		location := strings.ToLower(strings.TrimSpace(r.FormValue("location")))
 		website := strings.ToLower(strings.TrimSpace(r.FormValue("website")))
 		work := strings.ToLower(strings.TrimSpace(r.FormValue("work")))
-		bio := strings.TrimSpace(r.FormValue("bio"))
 		graberror := []string{}
 
 		UpdateBson := bson.M{}
@@ -116,22 +114,6 @@ func (let *UpdateStruct ) UpdateUserProfile (w http.ResponseWriter, r *http.Requ
 			UpdateBson["work"] = work
 		}
 
-		if len(bio) > 120 {
-			graberror = append(graberror, `
-			    <div style="padding:10px 10px 10px 10px;" class="errxy090"><div style="background:#ccc;width:200px;border-radius:4px;padding:5px 5px 5px 5px;color:black;font-size:14px;" class="errxy090-chld">
-			       <span>exceeding bio limit, atleast 120 characters </span>
-			    </div></div>
-		    `)
-		}else{
-			if finduser["about"] != nil && len(finduser["about"].(string)) > 0 {
-				if finduser["about"].(string) != bio{
-					UpdateBson["about"] = bio
-				}
-			}else{
-				UpdateBson["about"] = bio
-			}
-		}
-
 		if len(website) > 0 {
 			if finduser["website"] != nil && len(finduser["website"].(string)) > 0 {
 				if finduser["website"].(string) != website {
@@ -199,7 +181,6 @@ func (let *UpdateStruct ) UpdateUserProfile (w http.ResponseWriter, r *http.Requ
 			        </div>
 			   `+UpdateUserOnUrl)
 
-			   Error["bdy"+session.Values["usersid"].(string)] = template.HTML(`<div style="padding-top:10px;" class="bdyxr091x">`+hashtag.EmbedTagsInBio(bio)+`<span></span></div>`)
 			   Error["username"+session.Values["usersid"].(string)] = template.HTML("@"+username)
 			   Error["fullname"+session.Values["usersid"].(string)] = template.HTML(fullname)
 			   Error["website"+session.Values["usersid"].(string)] = template.HTML(`<div style="position:relative;top:2px;" class="ovx6789xl"><i data-feather='link-2' color='black'></i></div> <div class="ovx6789x"> `+website+` 
